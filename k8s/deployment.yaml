@@ -1,0 +1,27 @@
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: cors-proxy
+     namespace: AKS-Cluster
+   spec:
+     replicas: 2
+     selector:
+       matchLabels:
+         app: cors-proxy
+     template:
+       metadata:
+         labels:
+           app: cors-proxy
+       spec:
+         containers:
+         - name: cors-proxy
+           image: nushams/cors-proxy
+           ports:
+           - containerPort: 8080
+           resources:
+             requests:
+               memory: "128Mi"
+               cpu: "250m"
+             limits:
+               memory: "256Mi"
+               cpu: "500m"
