@@ -2,7 +2,7 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: pdb
-  namespace: AKS-Cluster
+  namespace: aks-cluster
 spec:
   minAvailable: 1
   selector:

@@ -2,7 +2,7 @@
    kind: Deployment
    metadata:
      name: cors-proxy
-     namespace: AKS-Cluster
+     namespace: aks-cluster
    spec:
      replicas: 2
      selector:

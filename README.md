@@ -238,7 +238,7 @@ docker push <your-dockerhub-username>/cors-proxy
    kind: Deployment
    metadata:
      name: cors-proxy
-     namespace: AKS-Cluster
+     namespace: aks-cluster
    spec:
      replicas: 2
      selector:
@@ -268,7 +268,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cors-proxy-service
-  namespace: AKS-Cluster
+  namespace: aks-cluster
 spec:
   type: LoadBalancer
   selector:
@@ -286,7 +286,7 @@ kubectl apply -f service.yaml
 ```
 7. Retrieve the External IP Address:
 ```bash
-kubectl get svc cors-proxy-service
+kubectl get svc -n aks-cluster
 ```
 8. Test the CORS Proxy:
 ```bash
@@ -303,12 +303,12 @@ If successful, the proxy should return the Google homepage with the appropriate 
 
 ### 1. Create a Horizontal Pod Autoscaler (HPA):
 ```bash
-kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=10
+kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=10 -n aks-cluster
 ```
 
 2. Verify the Metrics Server is running:
 ```bash
-kubectl get deployment metrics-server -n kube-system
+kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=10 -n aks-cluster
 ```
 ### 2. Configure Ingress and Load Balancing
 To handle up to 1000 requests per second, ensure that your ingress and load balancing are correctly configured.
