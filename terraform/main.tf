@@ -1,5 +1,7 @@
 provider "azurerm" {
   features {}
+  
+  subscription_id = "245ce031-cd70-4369-9fe3-b22d7fb8a0f0"
 }
 
 resource "azurerm_resource_group" "example" {
@@ -31,9 +33,6 @@ resource "azurerm_kubernetes_cluster" "example" {
     name       = "default"
     node_count = 3
     vm_size    = "Standard_DS2_v2"
-    os_type    = "Linux"
-
-    availability_zones = ["1", "2", "3"]
   }
 
   identity {
@@ -46,5 +45,11 @@ resource "azurerm_kubernetes_cluster" "example" {
 }
 
 output "kube_config" {
-  value = azurerm_kubernetes_cluster.example.kube_config[0].raw_kube_config
+  value = azurerm_kubernetes_cluster.example.kube_config
+  sensitive = true
+}
+
+output "kube_config_raw" {
+  value = azurerm_kubernetes_cluster.example.kube_config_raw
+  sensitive = true
 }
