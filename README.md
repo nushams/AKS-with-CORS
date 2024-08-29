@@ -96,7 +96,7 @@ Deploy an application with CPU resource requests and limits.
 
 Create an Horizontal Pod Autoscaler:
 ```bash
-kubectl autoscale deployment akscors --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=10 -n aks-cluster
 ```
 - `--cpu-percent=50`: Target average CPU utilization.
 - `--min=1`: Minimum number of pods.
@@ -308,7 +308,7 @@ kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=10 -n aks
 
 2. Verify the Metrics Server is running:
 ```bash
-kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=10 -n aks-cluster
+kubectl get deployment cors-proxy -n aks-cluster
 ```
 ### 2. Configure Ingress and Load Balancing
 To handle up to 1000 requests per second, ensure that your ingress and load balancing are correctly configured.
@@ -340,6 +340,6 @@ az aks update --resource-group AKSwithCORS-RG --name AKS-Cluster --enable-cluste
 ```
 - Increase HPA Limits: Adjust the HPA to allow scaling beyond the initial limits if necessary.
 ```bash
-kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=20
+kubectl autoscale deployment cors-proxy --cpu-percent=50 --min=2 --max=20 -n aks-cluster
 ```
 #### For extremely high traffic (e.g., 10,000+ requests per second), consider using multiple AKS clusters spread across different regions. You can use Azure Traffic Manager or a similar service to distribute the traffic between these clusters. The main challenge and limitations can be due to max pod count and node capacity, additionally, due to overall network latency.
